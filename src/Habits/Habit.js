@@ -1,15 +1,13 @@
 import styled from "styled-components";
 
-export default function Habit() {
-  return (
-    <DivHabit>
-      <p>
-        Habito1 ......................gfgfffdsfsdfsdfsdfsdfsdfsdf
-        dsfdsfdsfdsfdsfsdf......................dsfdsfdsfdsfdsfsdfdfsdfsdf
-        dsfsdfsdfdsfdsfsd.............
-      </p>
-    </DivHabit>
-  );
+export default function Habit({ habits }) {
+  return habits.map((habit) => {
+    return (
+      <DivHabit>
+        <p>{habit}</p>
+      </DivHabit>
+    );
+  });
 }
 
 const DivHabit = styled.div`

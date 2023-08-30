@@ -1,21 +1,66 @@
 import styled from "styled-components";
+import { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+
+import Loading from "../Loading";
 
 import Logo from "./../img/Logo1.png";
-import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ saveToken }) {
+  const [infosLogin, setinfosLogin] = useState({ email: "", password: "" });
+  const [buttonState, setButtonState] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState("Entrar");
+  const navigate = useNavigate();
+  function post(event) {
+    event.preventDefault();
+    setButtonState(true);
+    setButtonLoading(<Loading />);
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
+    const promise = axios.post(URL, infosLogin);
+    promise.then((response) => {
+      const { data } = response;
+      console.log(data);
+      saveToken(data.token);
+      navigate("/habitos");
+    });
+    promise.catch((err) => {
+      console.log(err.response);
+      setButtonState(false);
+      setButtonLoading("Entrar");
+      alert("Algo deu errado, tente novamente!");
+    });
+  }
+  const { email, password } = infosLogin;
   return (
     <Conteiner>
       <img src={Logo} alt="Logo" />
-      <Form>
-        <input required placeholder="e-mail" />
-        <input required placeholder="senha" />
-        <button type="submit" className="save-button">
-          Entrar
+      <Form onSubmit={post}>
+        <input
+          disabled={buttonState}
+          required
+          placeholder="e-mail"
+          value={email}
+          onChange={(e) =>
+            setinfosLogin({ ...infosLogin, email: e.target.value })
+          }
+        />
+        <input
+          disabled={buttonState}
+          required
+          placeholder="senha"
+          value={password}
+          onChange={(e) =>
+            setinfosLogin({ ...infosLogin, password: e.target.value })
+          }
+        />
+        <button disabled={buttonState} type="submit" className="save-button">
+          {buttonLoading}
         </button>
       </Form>
       <Link to={"/cadastro"}>
-        <ButtonRegisterLogin>
+        <ButtonRegisterLogin disabled={buttonState}>
           Não tem uma conta? Cadastre-se!
         </ButtonRegisterLogin>
       </Link>
@@ -24,6 +69,7 @@ export default function Login() {
 }
 
 // ----------------------------------
+
 const Conteiner = styled.div`
   width: 100%;
   height: 100%;
@@ -56,6 +102,9 @@ export const Form = styled.form`
     border: solid #c37f90 2px;
     color: #ffffff;
     font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   input {
     width: 100%;

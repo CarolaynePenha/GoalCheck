@@ -1,26 +1,96 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 import { Form } from "../Login/index";
 import { ButtonRegisterLogin } from "../Login/index";
+import Loading from "../Loading";
 
 import Logo from "./../img/Logo1.png";
 
 export default function Register() {
+  const navigate = useNavigate();
+  const [infosRegister, setInfosRegister] = useState({
+    email: "",
+    name: "",
+    image: "",
+    password: "",
+  });
+  const [buttonState, setButtonState] = useState(false);
+  const { email, name, image, password } = infosRegister;
+  const [buttonLoading, setButtonLoading] = useState("Entrar");
+  function post(event) {
+    event.preventDefault();
+    setButtonState(true);
+    setButtonLoading(<Loading />);
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+    const promise = axios.post(URL, infosRegister);
+    promise.then((response) => {
+      const { data } = response;
+      console.log(data);
+      navigate("/");
+    });
+    promise.catch((err) => {
+      console.log(err.response);
+      setButtonState(false);
+      setButtonLoading("Entrar");
+      alert("algo deu errado,tente novamente!");
+    });
+  }
   return (
     <Conteiner>
       <img src={Logo} alt="Logo" />
-      <Form>
-        <input type="e-mail" required placeholder="e-mail" />
-        <input type="password" required placeholder="senha" />
-        <input type="text" required placeholder="nome" />
-        <input type="file" required placeholder="foto" />
-        <button type="submit" className="save-button">
-          Entrar
+      <Form onSubmit={post}>
+        <input
+          disabled={buttonState}
+          type="e-mail"
+          required
+          placeholder="e-mail"
+          value={email}
+          onChange={(e) =>
+            setInfosRegister({ ...infosRegister, email: e.target.value })
+          }
+        />
+        <input
+          disabled={buttonState}
+          type="password"
+          required
+          placeholder="senha"
+          value={password}
+          onChange={(e) =>
+            setInfosRegister({ ...infosRegister, password: e.target.value })
+          }
+        />
+        <input
+          disabled={buttonState}
+          type="text"
+          required
+          placeholder="nome"
+          value={name}
+          onChange={(e) =>
+            setInfosRegister({ ...infosRegister, name: e.target.value })
+          }
+        />
+        <input
+          disabled={buttonState}
+          type="url"
+          required
+          placeholder="foto"
+          value={image}
+          onChange={(e) =>
+            setInfosRegister({ ...infosRegister, image: e.target.value })
+          }
+        />
+        <button disabled={buttonState} type="submit" className="save-button">
+          {buttonLoading}
         </button>
       </Form>
       <Link to={"/"}>
-        <ButtonRegisterLogin>Já tem uma conta? Faça login!</ButtonRegisterLogin>
+        <ButtonRegisterLogin disabled={buttonState}>
+          Já tem uma conta? Faça login!
+        </ButtonRegisterLogin>
       </Link>
     </Conteiner>
   );

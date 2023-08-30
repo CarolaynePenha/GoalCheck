@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 import Login from "./Login";
 import Register from "./Register/Register";
@@ -9,13 +10,17 @@ import History from "./History";
 import Header from "./Header";
 
 function App() {
+  const [token, setToken] = useState();
   return (
     <DivApp>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route
+            path="/"
+            element={<Login saveToken={(token) => setToken(token)} />}
+          />
           <Route path="/cadastro" element={<Register />} />
-          <Route path="/habitos" element={<Habits />} />
+          <Route path="/habitos" element={<Habits token={token} />} />
           <Route path="/hoje" element={<Today />} />
           <Route path="/historico" element={<History />} />
         </Routes>
