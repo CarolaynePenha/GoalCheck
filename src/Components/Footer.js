@@ -4,6 +4,7 @@ export default function Footer() {
   return (
     <DivFooter>
       <p>habitos</p>
+      <button>Hoje</button>
       <p>historico</p>
     </DivFooter>
   );
@@ -21,5 +22,17 @@ const DivFooter = styled.footer`
     color: #c37f90;
     font-size: 20px;
     font-weight: 500;
+  }
+  button {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: none;
+    margin-bottom: 20px;
+    background-color: #c37f90;
+    font-family: "Murecho", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: #ffffff;
   }
 `;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import Habit from "./Habits/Habit";
 import axios from "axios";
+
+import Habit from "./Habits/Habit";
 
 export default function Today({ token }) {
   const [todayHabits, setTodayHabits] = useState(null);

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-import LogoPequena from "./img/Logo-pequena.png";
-import Dog from "./img/dog2.webp";
+import LogoPequena from "./../assets/img/Logo-pequena.png";
+import Dog from "./../assets/img/dog2.webp";
+
 export default function Header() {
   return (
     <DivHeader>

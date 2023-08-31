@@ -1,13 +1,15 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-import Loading from "../Loading";
+import Loading from "./Loading";
+import TokenContext from "../Context/TokenContext";
 
-import Logo from "./../img/Logo1.png";
+import Logo from "./../assets/img/Logo1.png";
 
-export default function Login({ saveToken }) {
+export default function Login() {
+  const { token, setToken } = useContext(TokenContext);
   const [infosLogin, setinfosLogin] = useState({ email: "", password: "" });
   const [buttonState, setButtonState] = useState(false);
   const [buttonLoading, setButtonLoading] = useState("Entrar");
@@ -22,7 +24,7 @@ export default function Login({ saveToken }) {
     promise.then((response) => {
       const { data } = response;
       console.log(data);
-      saveToken(data.token);
+      setToken(data.token);
       navigate("/habitos");
     });
     promise.catch((err) => {

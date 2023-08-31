@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-import { Form } from "../Login/index";
-import { ButtonRegisterLogin } from "../Login/index";
-import Loading from "../Loading";
+import { Form } from "./Login";
+import { ButtonRegisterLogin } from "./Login";
+import Loading from "./Loading";
 
-import Logo from "./../img/Logo1.png";
+import Logo from "./../assets/img/Logo1.png";
 
 export default function Register() {
   const navigate = useNavigate();

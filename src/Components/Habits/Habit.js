@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export default function Habit({ habits }) {
-  return habits.map((habit) => {
+  return habits.map((habit, index) => {
     return (
-      <DivHabit>
+      <DivHabit key={index}>
         <p>{habit}</p>
       </DivHabit>
     );
