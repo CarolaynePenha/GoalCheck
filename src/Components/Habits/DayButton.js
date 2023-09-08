@@ -1,10 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function DayButton({ day, saveIds, index }) {
+export default function DayButton({ day, saveIds, index, buttonState }) {
   const [selected, setSelected] = useState();
   return (
     <Input
+      disabled={buttonState}
       selected={selected}
       onClick={() => {
         setSelected(!selected);

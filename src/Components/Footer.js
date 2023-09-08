@@ -1,11 +1,19 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
     <DivFooter>
-      <p>habitos</p>
-      <button>Hoje</button>
-      <p>historico</p>
+      <Link to={"/habitos"}>
+        <button>habitos</button>
+      </Link>
+
+      <Link to={"/hoje"}>
+        <button className="today">Hoje</button>
+      </Link>
+      <Link to={"/historico"}>
+        <button>historico</button>
+      </Link>
     </DivFooter>
   );
 }
@@ -18,12 +26,16 @@ const DivFooter = styled.footer`
   justify-content: space-around;
   align-items: center;
   background-color: #ffffff;
-  p {
+  z-index: 1;
+
+  button {
+    background: none;
+    border: none;
     color: #c37f90;
     font-size: 20px;
     font-weight: 500;
   }
-  button {
+  .today {
     width: 90px;
     height: 90px;
     border-radius: 50%;

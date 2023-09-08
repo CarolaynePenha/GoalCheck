@@ -6,7 +6,7 @@ import TokenContext from "../Context/TokenContext";
 import Login from "./Login";
 import Register from "./Register";
 import Habits from "./Habits/Habits";
-import Today from "./Today";
+import Today from "./Today/Today";
 import History from "./History";
 
 function App() {

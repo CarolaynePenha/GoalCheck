@@ -22,6 +22,7 @@ const DivHeader = styled.header`
   align-items: center;
   background-color: #fdb4c6;
   filter: drop-shadow(3px 4px 4px #fdb4c6);
+  z-index: 1;
   .logo-pequena {
     width: 150px;
     height: auto;
