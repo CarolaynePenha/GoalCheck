@@ -19,36 +19,40 @@ export default function NewHabit({ newHabit, setNewHabit }) {
   const { newText, ids } = newDaysText;
 
   function post() {
-    setSaveButton(<Loading />);
-    setButtonState(true);
+    if (newDaysText.newText.length > 0) {
+      setSaveButton(<Loading />);
+      setButtonState(true);
 
-    const URL =
-      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
-    const body = {
-      name: newText,
-      days: ids,
-    };
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const promise = axios.post(URL, body, config);
+      const URL =
+        "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
+      const body = {
+        name: newText,
+        days: ids,
+      };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const promise = axios.post(URL, body, config);
 
-    promise.then((response) => {
-      const { data } = response;
-      setSaveButton("Salvar");
-      setNewHabit(!newHabit);
-      setNewDaysText({ ...newDaysText, newText: "", ids: [] });
-      setButtonState(false);
-    });
+      promise.then((response) => {
+        const { data } = response;
+        setSaveButton("Salvar");
+        setNewHabit(!newHabit);
+        setNewDaysText({ ...newDaysText, newText: "", ids: [] });
+        setButtonState(false);
+      });
 
-    promise.catch((err) => {
-      console.log(err.response);
-      setSaveButton("Salvar");
-      setButtonState(false);
-      alert("Ocorreu um erro.");
-    });
+      promise.catch((err) => {
+        console.log(err.response);
+        setSaveButton("Salvar");
+        setButtonState(false);
+        alert("Ocorreu um erro.");
+      });
+    } else {
+      alert("Digite um objetivo para ser salvo!");
+    }
   }
 
   function saveIds(index) {

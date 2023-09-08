@@ -9,6 +9,7 @@ import Habit from "./Habit";
 import Footer from "../Footer";
 import NewHabit from "./NewHabit";
 import Header from "./../Header";
+import SecondLoading from "../SecondLoading";
 
 export default function Habits() {
   const { token } = useContext(TokenContext);
@@ -28,10 +29,8 @@ export default function Habits() {
       const promise = axios.get(URL, config);
       promise.then((response) => {
         const { data } = response;
-        console.log(response);
 
         setHabits(data.sort((a, b) => a.id - b.id));
-        console.log("data: ", data);
       });
       promise.catch((err) => console.log(err.response));
     }
@@ -61,7 +60,7 @@ export default function Habits() {
       </Content>
       <Footer />
     </>
-  ) : (
+  ) : habits !== null ? (
     <>
       <Header />
       <Content>
@@ -81,6 +80,10 @@ export default function Habits() {
       </Content>
       <Footer />
     </>
+  ) : (
+    <Loanding>
+      <SecondLoading />
+    </Loanding>
   );
 }
 
@@ -126,4 +129,11 @@ const Content = styled.section`
   .anyHabit p {
     margin: 10px;
   }
+`;
+const Loanding = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 50%;
 `;

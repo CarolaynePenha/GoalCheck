@@ -72,7 +72,9 @@ export default function Today() {
       <Container>
         <div className="title">
           <strong>{dayjs().format("dddd, DD/MM")}</strong>
-          <small>{percent ? percent : 0}% dos hábitos concluídos.</small>
+          <small>
+            {percent ? percent.toFixed(2) : 0}% dos hábitos concluídos.
+          </small>
         </div>
         {todayHabits.map((habitToday) => {
           return (
@@ -121,7 +123,9 @@ const Container = styled.section`
   }
 `;
 const Loanding = styled.div`
+  width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  padding-top: 120px;
+  padding-top: 50%;
 `;

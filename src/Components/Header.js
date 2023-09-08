@@ -6,7 +6,7 @@ import ImageContext from "../Context/ImageContext";
 
 export default function Header() {
   const { image } = useContext(ImageContext);
-  console.log("image: ", image);
+
   return (
     <DivHeader>
       <img className="logo-pequena" src={LogoPequena} alt="Logo Pequena" />
