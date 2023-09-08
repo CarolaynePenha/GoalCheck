@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -10,7 +10,6 @@ export default function TodayHabit({
   setFinishedHabit,
 }) {
   const { highestSequence, currentSequence, name, id, done } = habitToday;
-
   const { token } = useContext(TokenContext);
 
   function finished() {
@@ -19,22 +18,26 @@ export default function TodayHabit({
         Authorization: `Bearer ${token}`,
       },
     };
+
     if (!done) {
       const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`;
       const promise = axios.post(URL, null, config);
+
       promise.then((response) => {
         const { data } = response;
         setFinishedHabit(!finishedHabit);
       });
-      promise.catch((err) => console.log("err: ", err));
+      promise.catch((err) => console.log("err: ", err.response));
     } else {
       const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`;
       const promise = axios.post(URL, null, config);
+
       promise.then((response) => {
         const { data } = response;
         setFinishedHabit(!finishedHabit);
       });
-      promise.catch((err) => console.log("err: ", err));
+
+      promise.catch((err) => console.log("err: ", err.response));
     }
   }
 
@@ -63,7 +66,7 @@ export default function TodayHabit({
   );
 }
 
-// ------------------css
+// --------------------------------------   css
 const Content = styled.div`
   width: 95%;
   height: fit-content;
@@ -74,6 +77,7 @@ const Content = styled.div`
   align-items: center;
   font-family: "Murecho", sans-serif;
   padding: 10px;
+  margin-bottom: 10px;
 
   ion-icon {
     color: ${({ finishedHabit }) => (finishedHabit ? "#4B8078" : "#BFBFBF")};
@@ -85,6 +89,7 @@ const Content = styled.div`
   .name-habit {
     font-size: 20px;
     font-weight: 500;
+    color: #b35c72;
   }
   .sequence {
     display: flex;

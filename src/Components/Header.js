@@ -1,13 +1,16 @@
 import styled from "styled-components";
+import { useContext } from "react";
 
 import LogoPequena from "./../assets/img/Logo-pequena.png";
-import Dog from "./../assets/img/dog2.webp";
+import ImageContext from "../Context/ImageContext";
 
 export default function Header() {
+  const { image } = useContext(ImageContext);
+  console.log("image: ", image);
   return (
     <DivHeader>
       <img className="logo-pequena" src={LogoPequena} alt="Logo Pequena" />
-      <img className="user" src={Dog} alt="dog" />
+      <img className="user" src={image} alt="dog" />
     </DivHeader>
   );
 }

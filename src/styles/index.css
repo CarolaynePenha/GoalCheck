@@ -3,8 +3,8 @@
 }
 .root {
   width: 100%;
-  min-height: 100vh;
-  height: 100%;
+  height: fit-content;
+  min-height: calc(100vh - 160px);
   font-family: "Roboto", sans-serif;
 }
 body {

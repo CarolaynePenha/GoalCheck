@@ -6,7 +6,6 @@ import axios from "axios";
 import { Form } from "./Login";
 import { ButtonRegisterLogin } from "./Login";
 import Loading from "./Loading";
-
 import Logo from "./../assets/img/Logo1.png";
 
 export default function Register() {
@@ -20,6 +19,7 @@ export default function Register() {
   const [buttonState, setButtonState] = useState(false);
   const { email, name, image, password } = infosRegister;
   const [buttonLoading, setButtonLoading] = useState("Entrar");
+
   function post(event) {
     event.preventDefault();
     setButtonState(true);
@@ -27,11 +27,12 @@ export default function Register() {
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
     const promise = axios.post(URL, infosRegister);
+
     promise.then((response) => {
       const { data } = response;
-      console.log(data);
       navigate("/");
     });
+
     promise.catch((err) => {
       console.log(err.response);
       setButtonState(false);
@@ -45,7 +46,7 @@ export default function Register() {
       <Form onSubmit={post}>
         <input
           disabled={buttonState}
-          type="e-mail"
+          type="email"
           required
           placeholder="e-mail"
           value={email}
@@ -96,7 +97,7 @@ export default function Register() {
   );
 }
 
-// ----------------------------------
+// ----------------------------------  css
 const Conteiner = styled.div`
   width: 100%;
   height: 100%;

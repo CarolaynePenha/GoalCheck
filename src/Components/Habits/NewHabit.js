@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import DayButton from "./DayButton";
 import { useContext, useState } from "react";
 import axios from "axios";
 
 import TokenContext from "../../Context/TokenContext";
 import Loading from "./../Loading";
-import Habits from "./Habits";
+import DayButton from "./DayButton";
 
 export default function NewHabit({ newHabit, setNewHabit }) {
   const arrDays = ["D", "S", "T", "Q", "Q", "S", "S"];
@@ -22,6 +21,7 @@ export default function NewHabit({ newHabit, setNewHabit }) {
   function post() {
     setSaveButton(<Loading />);
     setButtonState(true);
+
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
     const body = {
@@ -33,8 +33,8 @@ export default function NewHabit({ newHabit, setNewHabit }) {
         Authorization: `Bearer ${token}`,
       },
     };
-
     const promise = axios.post(URL, body, config);
+
     promise.then((response) => {
       const { data } = response;
       setSaveButton("Salvar");
@@ -42,6 +42,7 @@ export default function NewHabit({ newHabit, setNewHabit }) {
       setNewDaysText({ ...newDaysText, newText: "", ids: [] });
       setButtonState(false);
     });
+
     promise.catch((err) => {
       console.log(err.response);
       setSaveButton("Salvar");
@@ -112,7 +113,7 @@ export default function NewHabit({ newHabit, setNewHabit }) {
   );
 }
 
-// -----------css
+// -------------------------------------------  css
 const DivNewHabit = styled.div`
   width: 95%;
   height: fit-content;

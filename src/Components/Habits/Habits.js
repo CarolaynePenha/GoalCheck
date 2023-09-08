@@ -12,12 +12,12 @@ import Header from "./../Header";
 
 export default function Habits() {
   const { token } = useContext(TokenContext);
-  console.log("token: ", token);
   const [habits, setHabits] = useState([]);
   const [newHabit, setNewHabit] = useState(false);
   const [deleteHabit, setDeleteHabit] = useState(false);
   const URL =
     "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
+
   useEffect(() => {
     if (token) {
       const config = {
@@ -36,7 +36,7 @@ export default function Habits() {
       promise.catch((err) => console.log(err.response));
     }
   }, [token, newHabit, deleteHabit]);
-  console.log("habits", habits);
+
   return habits.length > 0 ? (
     <>
       <Header />
@@ -84,10 +84,11 @@ export default function Habits() {
   );
 }
 
+// ------------------------------------ css
 const Content = styled.section`
   width: 100%;
   height: fit-content;
-  min-height: 100vh;
+  min-height: calc(100% - 160px);
   margin: 120px 0px;
   display: flex;
   flex-direction: column;

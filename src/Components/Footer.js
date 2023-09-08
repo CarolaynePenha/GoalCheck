@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
-export default function Footer() {
+import "react-circular-progressbar/dist/styles.css";
+
+export default function Footer({ percent }) {
+  if (percent === undefined) {
+    percent = 0;
+  }
   return (
     <DivFooter>
       <Link to={"/habitos"}>
@@ -9,7 +15,17 @@ export default function Footer() {
       </Link>
 
       <Link to={"/hoje"}>
-        <button className="today">Hoje</button>
+        <button className="today">
+          <CircularProgressbar
+            value={percent}
+            text={`Hoje`}
+            styles={buildStyles({
+              pathColor: "#ffffff",
+              trailColor: "#c37f90",
+              textColor: "#ffffff",
+            })}
+          />
+        </button>
       </Link>
       <Link to={"/historico"}>
         <button>historico</button>
@@ -17,6 +33,8 @@ export default function Footer() {
     </DivFooter>
   );
 }
+
+// -----------------------------------------  css
 const DivFooter = styled.footer`
   width: 100%;
   height: 80px;
@@ -38,6 +56,8 @@ const DivFooter = styled.footer`
   .today {
     width: 90px;
     height: 90px;
+    display: flex;
+    align-items: center;
     border-radius: 50%;
     border: none;
     margin-bottom: 20px;

@@ -17,7 +17,7 @@ export default function DayButton({ day, saveIds, index, buttonState }) {
   );
 }
 
-// --------css
+// ---------------------------------------------------------- css
 
 const Input = styled.input`
   width: 25px;

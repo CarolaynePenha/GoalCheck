@@ -1,19 +1,27 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 import Loading from "./Loading";
-import TokenContext from "../Context/TokenContext";
-
 import Logo from "./../assets/img/Logo1.png";
+import TokenContext from "../Context/TokenContext";
+import ImageContext from "../Context/ImageContext";
 
 export default function Login() {
   const { token, setToken } = useContext(TokenContext);
+  const { image, setImage } = useContext(ImageContext);
   const [infosLogin, setinfosLogin] = useState({ email: "", password: "" });
   const [buttonState, setButtonState] = useState(false);
   const [buttonLoading, setButtonLoading] = useState("Entrar");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/habitos");
+    }
+  }, [token, navigate]);
+
   function post(event) {
     event.preventDefault();
     setButtonState(true);
@@ -21,12 +29,17 @@ export default function Login() {
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
     const promise = axios.post(URL, infosLogin);
+
     promise.then((response) => {
       const { data } = response;
-      console.log(data);
+      // const userObj = data;
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("image", data.image);
       setToken(data.token);
+      setImage(data.image);
       navigate("/habitos");
     });
+
     promise.catch((err) => {
       console.log(err.response);
       setButtonState(false);
@@ -34,7 +47,9 @@ export default function Login() {
       alert("Algo deu errado, tente novamente!");
     });
   }
+
   const { email, password } = infosLogin;
+
   return (
     <Conteiner>
       <img src={Logo} alt="Logo" />
@@ -70,7 +85,7 @@ export default function Login() {
   );
 }
 
-// ----------------------------------
+// --------------------------------------- css
 
 const Conteiner = styled.div`
   width: 100%;

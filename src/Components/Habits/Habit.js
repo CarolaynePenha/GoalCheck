@@ -7,8 +7,8 @@ import TokenContext from "../../Context/TokenContext";
 
 export default function Habit({ habit, deleteHabit, setDeleteHabit }) {
   const { token } = useContext(TokenContext);
+
   function remove(id) {
-    console.log("id: ", id);
     Swal.fire({
       title: "Tem certeza que deseja excluir esse hábito?",
       text: "Não será possivél reverter.",
@@ -51,11 +51,11 @@ export default function Habit({ habit, deleteHabit, setDeleteHabit }) {
     for (let j = 0; j < habit.days.length; j++) {
       if (arrDays[i].numberDay === habitDay[j]) {
         arrDays[i].selectedDay = true;
-        console.log("arrDays.selectedDay: ", arrDays.selectedDay);
         j = 10;
       }
     }
   }
+
   return (
     <DivHabit>
       <p>{habit.name}</p>
@@ -76,6 +76,7 @@ export default function Habit({ habit, deleteHabit, setDeleteHabit }) {
   );
 }
 
+// -------------------------------------------------------- css
 const DivHabit = styled.div`
   width: 100%;
   height: fit-content;

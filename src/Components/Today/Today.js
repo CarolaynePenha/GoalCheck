@@ -2,11 +2,29 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useContext } from "react";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+import updateLocale from "dayjs/plugin/updateLocale";
 
 import TokenContext from "../../Context/TokenContext";
 import Header from "../Header";
 import Footer from "../Footer";
 import TodayHabit from "./TodayHabit";
+import SecondLoading from "../SecondLoading";
+
+dayjs.locale("pt-br");
+dayjs.extend(updateLocale);
+dayjs.updateLocale("pt-br", {
+  weekdays: [
+    "Domingo",
+    "Segunda-feira",
+    "Terça-feira",
+    "Quarta-feira",
+    "Quinta-feira",
+    "Sexta-feira",
+    "Sábado",
+  ],
+});
 
 export default function Today() {
   const [todayHabits, setTodayHabits] = useState(null);
@@ -36,24 +54,25 @@ export default function Today() {
             }
           });
           const xPercent = (cont * 100) / data.length;
-          console.log("xPercent: ", xPercent);
+
           setPercent(xPercent);
         }
       });
       promise.catch((err) => console.log(err.response));
     }
   }, [token, finishedHabit]);
-  console.log("Percent: ", percent);
 
   return todayHabits === null ? (
-    <p> Carregando </p>
+    <Loanding>
+      <SecondLoading />
+    </Loanding>
   ) : (
     <>
       <Header />
       <Container>
         <div className="title">
-          <strong></strong>
-          <small>{percent}% dos hábitos concluídos.</small>
+          <strong>{dayjs().format("dddd, DD/MM")}</strong>
+          <small>{percent ? percent : 0}% dos hábitos concluídos.</small>
         </div>
         {todayHabits.map((habitToday) => {
           return (
@@ -65,19 +84,44 @@ export default function Today() {
           );
         })}
       </Container>
-      <Footer />
+      <Footer percent={percent} />
     </>
   );
 }
 
-// ------------------------css
+// ------------------------------------ css
 
 const Container = styled.section`
   width: 100%;
   height: fit-content;
+  min-height: calc(100% - 160px);
   margin: 120px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  .title {
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  strong {
+    padding-bottom: 5px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #b35c72;
+  }
+  small {
+    padding-bottom: 30px;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: "Murecho", sans-serif;
+    color: #72a400;
+  }
+`;
+const Loanding = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 120px;
 `;
