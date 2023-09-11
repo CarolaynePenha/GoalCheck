@@ -36,7 +36,31 @@ export default function Habits() {
     }
   }, [token, newHabit, deleteHabit]);
 
-  return habits.length > 0 ? (
+  return habits === null ? (
+    <Loanding>
+      <SecondLoading />
+    </Loanding>
+  ) : habits.length === 0 ? (
+    <>
+      <Header />
+      <Content>
+        <div className="title">
+          <p>Meus hábitos</p>
+          <button onClick={() => setNewHabit(true)}>
+            <img src={Plus} />
+          </button>
+        </div>
+        <NewHabit newHabit={newHabit} setNewHabit={setNewHabit} />
+        <div className="anyHabit">
+          <p>
+            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+            começar!
+          </p>
+        </div>
+      </Content>
+      <Footer />
+    </>
+  ) : (
     <>
       <Header />
       <Content>
@@ -60,30 +84,6 @@ export default function Habits() {
       </Content>
       <Footer />
     </>
-  ) : habits !== null ? (
-    <>
-      <Header />
-      <Content>
-        <div className="title">
-          <p>Meus hábitos</p>
-          <button onClick={() => setNewHabit(true)}>
-            <img src={Plus} />
-          </button>
-        </div>
-        <NewHabit newHabit={newHabit} setNewHabit={setNewHabit} />
-        <div className="anyHabit">
-          <p>
-            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-            começar!
-          </p>
-        </div>
-      </Content>
-      <Footer />
-    </>
-  ) : (
-    <Loanding>
-      <SecondLoading />
-    </Loanding>
   );
 }
 

@@ -32,7 +32,7 @@ export default function Login() {
 
     promise.then((response) => {
       const { data } = response;
-      // const userObj = data;
+
       localStorage.setItem("token", data.token);
       localStorage.setItem("image", data.image);
       setToken(data.token);
@@ -65,6 +65,7 @@ export default function Login() {
         />
         <input
           disabled={buttonState}
+          type="password"
           required
           placeholder="senha"
           value={password}

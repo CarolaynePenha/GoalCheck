@@ -76,9 +76,10 @@ export default function Today() {
             {percent ? percent.toFixed(2) : 0}% dos hábitos concluídos.
           </small>
         </div>
-        {todayHabits.map((habitToday) => {
+        {todayHabits.map((habitToday, index) => {
           return (
             <TodayHabit
+              key={index}
               habitToday={habitToday}
               setFinishedHabit={setFinishedHabit}
               finishedHabit={finishedHabit}
