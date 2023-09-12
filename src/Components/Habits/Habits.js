@@ -13,7 +13,7 @@ import SecondLoading from "../SecondLoading";
 
 export default function Habits() {
   const { token } = useContext(TokenContext);
-  const [habits, setHabits] = useState([]);
+  const [habits, setHabits] = useState(null);
   const [newHabit, setNewHabit] = useState(false);
   const [deleteHabit, setDeleteHabit] = useState(false);
   const URL =
